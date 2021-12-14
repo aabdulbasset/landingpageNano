@@ -1,15 +1,14 @@
 const sections = document.querySelectorAll("section")
 //Build the navigation menu
-sections.forEach(function(item){
-    var elem = document.createElement("li")
-    
+sections.forEach((item)=>{
+    const elem = document.createElement("li") 
     elem.appendChild(document.createTextNode(item.dataset.nav))
     elem.className = "menu__link"
     elem.setAttribute("data-nav",item.dataset.nav)
     document.querySelector("#navbar__list").appendChild(elem)
     //Dynamic Collapse button
-    let collapse = document.createElement("div")
-    let collapseIcon = document.createElement("img")
+    const collapse = document.createElement("div")
+    const collapseIcon = document.createElement("img")
     collapseIcon.setAttribute("src","https://cdn-icons-png.flaticon.com/512/32/32195.png")
     collapse.appendChild(collapseIcon)
     collapse.setAttribute("data-collapse",item.dataset.nav)
@@ -20,9 +19,9 @@ sections.forEach(function(item){
 })
 
 function hideSection(elmnt){
-    sectionToCollap = document.querySelector(`main > [data-nav="${elmnt.dataset.collapse}"]`)
-    textToHide = sectionToCollap.querySelectorAll(".landing__container>p")
-    textToHide.forEach(function(e){
+    let sectionToCollap = document.querySelector(`main > [data-nav="${elmnt.dataset.collapse}"]`)
+    let textToHide = sectionToCollap.querySelectorAll(".landing__container>p")
+    textToHide.forEach((e)=>{
         if(e.style.opacity=="0"){
             e.style.opacity = "1"
         }else{
@@ -33,22 +32,24 @@ function hideSection(elmnt){
     
 }
 //Get the viewport and add/remove the "active" class
-var scrollingNav,scrollingSection;
-document.addEventListener("scroll",function(e){
+let scrollingNav;
+let scrollingSection;
+document.addEventListener("scroll",(e)=>{
     
     document.querySelector(".page__header").style.opacity = "1"
     window.clearTimeout( scrollingNav );
     window.clearTimeout(scrollingSection )
     //Make it run every 200ms only
-    scrollingSection = setTimeout(function(){
+    scrollingSection = setTimeout(()=>{
         if(window.scrollY+window.innerHeight >= document.body.scrollHeight/2){
             document.querySelector(".scroll-to-top").style.display = "block"
         }else{
             document.querySelector(".scroll-to-top").style.display = "none"
         }
-        sections.forEach(function(section){
+        sections.forEach((section)=>{
         
-            position = section.getBoundingClientRect()
+            let position = section.getBoundingClientRect()
+            
             if(position.y > -100 && position.y < position.height/1.2){
                 section.classList.add("active")
                 document.querySelector(`[data-nav="${section.dataset.nav}"]`).classList.add("active")
@@ -60,14 +61,14 @@ document.addEventListener("scroll",function(e){
     },200)
 
     //Hide navbar when user stops scrolling
-    scrollingNav = setTimeout(function(){
+    scrollingNav = setTimeout(()=>{
         document.querySelector(".page__header").style.opacity = "0"
     },3000)
 })
 //Make navbar scroll to sections
-document.querySelector("ul").addEventListener("click",function(e){
+document.querySelector("ul").addEventListener("click",(e)=>{
     if(e.target.tagName == "LI"){
-        position = document.querySelector(`main>[data-nav="${e.target.dataset.nav}"]`).getBoundingClientRect()
+        let position = document.querySelector(`main>[data-nav="${e.target.dataset.nav}"]`).getBoundingClientRect()
         window.scrollBy(
             {
                 top:position.y,
@@ -78,6 +79,6 @@ document.querySelector("ul").addEventListener("click",function(e){
     }
 })
 //Make navbar appear on hover
-document.querySelector(".page__header").addEventListener("mouseover",function(e){
+document.querySelector(".page__header").addEventListener("mouseover",(e)=>{
     document.querySelector(".page__header").style.opacity="1"
 })
